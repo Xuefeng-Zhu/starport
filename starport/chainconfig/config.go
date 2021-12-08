@@ -59,6 +59,7 @@ var DefaultConf = Config{
 // during serve.
 type Config struct {
 	Accounts  []Account              `yaml:"accounts"`
+	Plugins   []Plugin               `yaml:"plugins"`
 	Validator Validator              `yaml:"validator"`
 	Faucet    Faucet                 `yaml:"faucet"`
 	Client    Client                 `yaml:"client"`
@@ -94,6 +95,12 @@ type Account struct {
 type Validator struct {
 	Name   string `yaml:"name"`
 	Staked string `yaml:"staked"`
+}
+
+// Plugin holds info related to plugin settings.
+type Plugin struct {
+	Name string `yaml:"name"`
+	Repo string `yaml:"repo"`
 }
 
 // Build holds build configs.
@@ -227,6 +234,7 @@ func validate(conf Config) error {
 	if conf.Validator.Name == "" {
 		return &ValidationError{"validator is required"}
 	}
+
 	return nil
 }
 
